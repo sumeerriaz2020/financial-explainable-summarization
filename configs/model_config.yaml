@@ -1,0 +1,266 @@
+# Model Configuration
+# ===================
+# 
+# Hyperparameters for Hybrid Neural-Symbolic Model
+# Reference: Section IV.B (Implementation Details)
+
+# Model Architecture
+model:
+  name: "HybridFinancialSummarizer"
+  version: "1.0.0"
+  
+  # Text Encoder (BART)
+  text_encoder:
+    model_name: "facebook/bart-large"
+    hidden_dim: 1024
+    num_encoder_layers: 12
+    num_decoder_layers: 12
+    num_attention_heads: 16
+    intermediate_size: 4096
+    dropout: 0.1
+    attention_dropout: 0.1
+    activation: "gelu"
+    freeze_embeddings: false
+    freeze_encoder: false  # Set true for stage 1
+  
+  # Knowledge Graph Encoder (GAT)
+  kg_encoder:
+    input_dim: 768  # FIBO embedding dimension
+    hidden_dim: 512
+    output_dim: 1024  # Match text encoder
+    num_layers: 3
+    num_heads: 8
+    dropout: 0.2
+    attention_dropout: 0.1
+    add_self_loops: true
+    normalize: true
+    residual: true
+    
+    # Hierarchical encoding
+    hierarchical:
+      enabled: true
+      num_levels: 3
+      level_dims: [768, 512, 1024]
+  
+  # Cross-Modal Attention
+  cross_attention:
+    hidden_dim: 1024
+    num_heads: 8
+    dropout: 0.1
+    bidirectional: true
+    use_gating: true
+    
+    # Attention mechanism (Equation 2)
+    attention_type: "scaled_dot_product"
+    temperature: 1.0
+    
+    # Fusion strategy
+    fusion_method: "gated"  # Options: concat, add, gated
+    gate_activation: "sigmoid"
+  
+  # Multi-Hop Reasoning
+  multi_hop_reasoning:
+    enabled: true
+    num_hops: 3
+    hidden_dim: 512
+    use_attention: true
+    attention_heads: 4
+    path_aggregation: "attention"  # Options: mean, max, attention
+  
+  # Decoder
+  decoder:
+    use_bart_decoder: true
+    max_length: 128
+    min_length: 20
+    num_beams: 4
+    length_penalty: 1.0
+    early_stopping: true
+    no_repeat_ngram_size: 3
+    
+    # Generation parameters
+    temperature: 1.0
+    top_k: 50
+    top_p: 0.95
+    do_sample: false
+
+# Model Size
+model_size:
+  total_parameters: 416000000  # 416M
+  bart_parameters: 406000000   # 406M (97.6%)
+  kg_encoder_parameters: 2100000  # 2.1M (0.5%)
+  cross_attention_parameters: 4700000  # 4.7M (1.1%)
+  multi_hop_parameters: 3200000  # 3.2M (0.8%)
+
+# Computational Requirements
+compute:
+  # Training
+  train_batch_size: 16
+  train_memory_gb: 24
+  train_gpu: "NVIDIA A100 (40GB)"
+  
+  # Inference
+  inference_batch_size: 1
+  inference_memory_gb: 9.8
+  inference_time_per_doc: 2.9  # seconds
+  
+  # Optimization
+  gradient_checkpointing: true
+  mixed_precision: true  # fp16
+  gradient_accumulation_steps: 1
+
+# Initialization
+initialization:
+  method: "xavier_uniform"
+  gain: 1.0
+  bias: "zeros"
+  
+  # Pre-trained weights
+  load_pretrained:
+    text_encoder: true
+    kg_encoder: false
+    cross_attention: false
+    decoder: true
+
+# Regularization
+regularization:
+  dropout: 0.1
+  attention_dropout: 0.1
+  weight_decay: 0.01
+  label_smoothing: 0.1
+  gradient_clipping: 1.0
+
+# Output Configuration
+output:
+  save_attention_weights: true
+  save_reasoning_paths: true
+  generate_explanations: true
+  explanation_length: 50
+
+# Explainability Components
+explainability:
+  # MESA Framework
+  mesa:
+    enabled: true
+    stakeholder_profiles: ["analyst", "compliance", "executive", "investor"]
+    num_generators: 4
+    use_rl_learning: true
+    learning_rate: 1.0e-4
+  
+  # CAUSAL-EXPLAIN
+  causal_explain:
+    enabled: true
+    extract_chains: true
+    max_chain_length: 5
+    confidence_threshold: 0.6
+  
+  # TEMPORAL-EXPLAIN
+  temporal_explain:
+    enabled: true
+    detect_regime: true
+    consistency_window: 3
+  
+  # CONSENSUS
+  consensus:
+    enabled: true
+    num_methods: 4
+    scoring_weights:
+      accuracy: 0.30
+      linguistic: 0.25
+      stakeholder_fit: 0.25
+      compliance: 0.20
+
+# Optimization Settings (referenced by training config)
+optimization:
+  optimizer: "AdamW"
+  betas: [0.9, 0.999]
+  epsilon: 1.0e-8
+  amsgrad: false
+  
+  # Learning rates (per stage)
+  stage1_lr: 1.0e-4  # Warm-up
+  stage2_lr: 5.0e-5  # KG integration
+  stage3_lr: 2.0e-5  # End-to-end
+  
+  # Scheduler
+  scheduler: "linear_with_warmup"
+  warmup_ratio: 0.1
+  warmup_steps: null  # Auto-calculate
+  
+  # Loss weights (Equation 10)
+  loss_weights:
+    alpha: 0.7   # Summary loss
+    beta: 0.2    # KG alignment loss
+    gamma: 0.1   # Explanation loss
+
+# Knowledge Graph Integration
+knowledge_graph:
+  fibo_version: "2024-Q1"
+  use_hierarchical_encoding: true
+  max_nodes: 5000
+  max_edges: 15000
+  node_feature_dim: 768
+  
+  # Attention mechanism
+  kg_attention_heads: 8
+  kg_attention_dropout: 0.1
+
+# Special Tokens
+special_tokens:
+  pad_token: "<pad>"
+  bos_token: "<s>"
+  eos_token: "</s>"
+  unk_token: "<unk>"
+  sep_token: "</s>"
+  cls_token: "<s>"
+  mask_token: "<mask>"
+
+# Model Checkpointing
+checkpointing:
+  save_best_only: false
+  save_total_limit: 5
+  metric_for_best: "val_loss"
+  mode: "min"
+  
+  # Checkpoint contents
+  save_optimizer: true
+  save_scheduler: true
+  save_random_state: true
+
+# Device Configuration
+device:
+  use_cuda: true
+  cuda_device: 0
+  num_gpus: 1
+  distributed: false
+  local_rank: -1
+
+# Random Seeds
+random_seed:
+  seed: 42
+  deterministic: true
+  cudnn_benchmark: false
+
+# Logging
+logging:
+  level: "INFO"
+  log_interval: 100
+  tensorboard: true
+  wandb: false
+  
+  # Metrics to track
+  track_metrics:
+    - "loss"
+    - "rouge_l"
+    - "bertscore"
+    - "factual_consistency"
+    - "ssi"
+    - "cps"
+    - "tcc"
+
+# Notes
+# ------
+# - All dimensions must be divisible by num_attention_heads
+# - hidden_dim for KG encoder output should match text encoder
+# - Total parameters: ~416M (BART: 406M + Custom: 10M)
+# - Memory requirements: 24GB training, 9.8GB inference
+# - Inference time: ~2.9s per document on A100

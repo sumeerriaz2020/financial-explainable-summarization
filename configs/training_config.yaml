@@ -1,0 +1,354 @@
+# Training Configuration
+# ======================
+#
+# Multi-Stage Training Settings (Algorithm 6)
+# Reference: Section IV.B (Implementation Details)
+
+# General Settings
+experiment:
+  name: "financial_explainable_summarization"
+  description: "Hybrid neural-symbolic model with FIBO integration"
+  project: "financial-nlp"
+  run_name: "hybrid_training_v1"
+  tags: ["financial", "summarization", "explainable-ai", "fibo"]
+
+# Data Configuration
+data:
+  train_path: "data/train.json"
+  val_path: "data/val.json"
+  test_path: "data/test.json"
+  
+  # Dataset settings
+  max_source_length: 1024
+  max_target_length: 128
+  preprocessing:
+    lowercase: false
+    remove_stopwords: false
+    expand_contractions: true
+    normalize_numbers: false
+  
+  # Knowledge graph data
+  kg_path: "data/knowledge_graphs/"
+  fibo_ontology: "data/fibo/fibo_2024_q1.owl"
+  max_kg_nodes: 5000
+  max_kg_edges: 15000
+
+# Multi-Stage Training (Algorithm 6)
+training:
+  multi_stage: true
+  num_stages: 3
+  total_epochs: 10
+  
+  # Stage 1: Warm-up Phase (3 epochs)
+  stage1:
+    name: "warm-up"
+    epochs: 3
+    description: "Train decoder only, freeze encoders"
+    
+    # Parameters to train
+    trainable_components:
+      - "decoder"
+    
+    # Frozen components
+    frozen_components:
+      - "text_encoder.embeddings"
+      - "kg_encoder"
+      - "cross_attention"
+    
+    # Optimization
+    learning_rate: 1.0e-4
+    batch_size: 16
+    gradient_accumulation_steps: 1
+    
+    # Loss configuration
+    loss_weights:
+      summary: 1.0
+      kg_alignment: 0.0
+      explanation: 0.0
+  
+  # Stage 2: Knowledge Integration (2 epochs)
+  stage2:
+    name: "kg-integration"
+    epochs: 2
+    description: "Integrate KG encoder and cross-attention"
+    
+    # Parameters to train
+    trainable_components:
+      - "text_encoder"
+      - "kg_encoder"
+      - "cross_attention"
+    
+    # Frozen components
+    frozen_components:
+      - "decoder"
+    
+    # Optimization
+    learning_rate: 5.0e-5
+    batch_size: 16
+    gradient_accumulation_steps: 1
+    
+    # Loss configuration (Equation 10)
+    loss_weights:
+      summary: 0.7  # α
+      kg_alignment: 0.3  # β
+      explanation: 0.0
+  
+  # Stage 3: End-to-End Fine-tuning (5 epochs)
+  stage3:
+    name: "end-to-end"
+    epochs: 5
+    description: "Fine-tune all components together"
+    
+    # Parameters to train
+    trainable_components:
+      - "all"
+    
+    # Frozen components
+    frozen_components: []
+    
+    # Optimization
+    learning_rate: 2.0e-5
+    batch_size: 16
+    gradient_accumulation_steps: 1
+    
+    # Loss configuration (Equation 10)
+    loss_weights:
+      summary: 0.7    # α
+      kg_alignment: 0.2  # β
+      explanation: 0.1   # γ
+
+# Optimization
+optimization:
+  optimizer: "AdamW"
+  weight_decay: 0.01
+  betas: [0.9, 0.999]
+  epsilon: 1.0e-8
+  amsgrad: false
+  
+  # Learning rate scheduling
+  scheduler:
+    type: "linear_with_warmup"
+    warmup_ratio: 0.1
+    warmup_steps: null  # Auto-calculate
+    num_cycles: 1
+  
+  # Gradient clipping
+  max_grad_norm: 1.0
+  clip_grad_value: null
+
+# Batch Configuration
+batching:
+  train_batch_size: 16
+  eval_batch_size: 8
+  gradient_accumulation_steps: 1
+  
+  # DataLoader settings
+  num_workers: 4
+  pin_memory: true
+  prefetch_factor: 2
+  persistent_workers: true
+
+# Training Dynamics
+training_dynamics:
+  # Validation
+  eval_strategy: "epoch"
+  eval_steps: null  # Evaluate every epoch
+  
+  # Checkpointing
+  save_strategy: "epoch"
+  save_steps: null
+  save_total_limit: 5
+  
+  # Logging
+  logging_steps: 100
+  logging_first_step: true
+  
+  # Early stopping
+  early_stopping:
+    enabled: true
+    patience: 3
+    metric: "val_loss"
+    mode: "min"
+    min_delta: 0.001
+
+# Loss Configuration (Equation 10)
+# L_total = α*L_summary + β*L_KG + γ*L_explanation
+loss:
+  # Summary loss (cross-entropy)
+  summary:
+    type: "cross_entropy"
+    label_smoothing: 0.1
+    ignore_index: -100
+  
+  # KG alignment loss
+  kg_alignment:
+    type: "contrastive"
+    temperature: 0.07
+    margin: 0.5
+  
+  # Explanation loss
+  explanation:
+    type: "cross_entropy"
+    weight: null
+
+# Mixed Precision Training
+mixed_precision:
+  enabled: true
+  precision: "fp16"  # or "bf16"
+  opt_level: "O1"
+  loss_scale: "dynamic"
+
+# Distributed Training
+distributed:
+  enabled: false
+  backend: "nccl"
+  world_size: 1
+  local_rank: -1
+  find_unused_parameters: false
+
+# Gradient Checkpointing
+gradient_checkpointing:
+  enabled: true
+  checkpoint_segments: 4
+
+# Reproducibility
+reproducibility:
+  seed: 42
+  deterministic: true
+  cudnn_benchmark: false
+
+# Monitoring & Logging
+monitoring:
+  # TensorBoard
+  tensorboard:
+    enabled: true
+    log_dir: "runs/"
+    flush_secs: 30
+  
+  # Weights & Biases
+  wandb:
+    enabled: false
+    project: "financial-summarization"
+    entity: null
+    tags: ["hybrid", "explainable", "fibo"]
+  
+  # MLflow
+  mlflow:
+    enabled: false
+    tracking_uri: null
+    experiment_name: "financial_summarization"
+
+# Checkpointing
+checkpointing:
+  output_dir: "checkpoints/"
+  
+  # What to save
+  save_best: true
+  save_stages: true
+  save_optimizer: true
+  save_scheduler: true
+  save_random_state: true
+  
+  # Best model tracking
+  metric_for_best: "val_loss"
+  greater_is_better: false
+  
+  # Checkpoint format
+  format: "pytorch"  # or "safetensors"
+
+# Evaluation During Training
+evaluation:
+  # Metrics to compute
+  metrics:
+    - "rouge"
+    - "bertscore"
+    - "factual_consistency"
+  
+  # Generate samples
+  generate_samples: true
+  num_samples: 5
+  
+  # Prediction parameters
+  generation:
+    max_length: 128
+    min_length: 20
+    num_beams: 4
+    length_penalty: 1.0
+    early_stopping: true
+
+# Resource Management
+resources:
+  # GPU settings
+  gpu:
+    device: "cuda:0"
+    memory_limit: null  # GB, null for no limit
+    allow_growth: true
+  
+  # CPU settings
+  cpu:
+    num_threads: 8
+  
+  # Memory optimization
+  memory:
+    empty_cache_freq: 100  # Empty CUDA cache every N steps
+    pin_memory: true
+
+# Data Augmentation
+augmentation:
+  enabled: false
+  techniques:
+    - "back_translation"
+    - "synonym_replacement"
+  probability: 0.1
+
+# Curriculum Learning
+curriculum:
+  enabled: false
+  strategy: "difficulty"  # difficulty, length
+  initial_difficulty: 0.3
+  final_difficulty: 1.0
+
+# Resume Training
+resume:
+  enabled: false
+  checkpoint_path: null
+  resume_from_stage: null  # null = auto-detect
+
+# Profiling
+profiling:
+  enabled: false
+  profile_steps: [10, 15]
+  output_dir: "profiling/"
+
+# Debug Mode
+debug:
+  enabled: false
+  detect_anomaly: false
+  log_gpu_memory: false
+  overfit_batches: 0  # Number of batches to overfit (0 = disabled)
+
+# Expected Training Time (single A100 40GB)
+expected_duration:
+  stage1: "8 hours"
+  stage2: "6 hours"
+  stage3: "12 hours"
+  total: "26-30 hours"
+
+# Expected Performance (from paper - Table II)
+expected_results:
+  rouge_l: 0.487
+  bertscore: 0.686
+  factual_consistency: 87.6
+  ssi: 0.74
+  cps: 0.51
+  tcc: 0.54
+
+# Notes
+# ------
+# - Batch size may need adjustment based on GPU memory
+# - Stage 1 focuses on decoder warm-up
+# - Stage 2 integrates knowledge graph components
+# - Stage 3 performs end-to-end fine-tuning
+# - Total training: 10 epochs across 3 stages
+# - Expected training time: ~26-30 hours on A100
+# - Loss weights from Equation 10 in paper
