@@ -286,7 +286,7 @@ python -m spacy download en_core_web_sm
 
 | Framework | Metric | Improvement | Result |
 |-----------|--------|-------------|---------|
-| **Overall** | ROUGE-L | +15.7% | 0.421→0.487 |
+| **Overall** | ROUGE-L | +15.3% | 0.421→0.497 |
 | **MESA** | Stakeholder Satisfaction (SSI) | +21.3% | 0.61→0.74 |
 | **CAUSAL-EXPLAIN** | Causal Preservation (CPS) | +50.0% | 0.34→0.51 |
 | **CONSENSUS** | Explanation Consistency | +37.2% | 0.43→0.59 |
