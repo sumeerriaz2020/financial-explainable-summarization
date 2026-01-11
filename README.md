@@ -367,7 +367,7 @@ financial-explainable-summarization/
 |--------|----------|------|----------------|-------------|
 | ROUGE-L | 0.421 | 0.465 | **0.497** | **+15.3%** |
 | BERTScore | 0.612 | 0.658 | **0.686** | **+12.1%** |
-| Factual Consistency | 83.7% | 86.2% | **87.6%** | **+4.7pp** |
+| Factual Consistency | 83.7% | 86.2% | **87.6%** | **+4.7** |
 
 ### Explainability Metrics (Table III)
 
