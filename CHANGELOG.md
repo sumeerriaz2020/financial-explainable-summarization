@@ -111,7 +111,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Performance
 
 #### Summarization Quality (Table II)
-- ROUGE-L: 0.487 (+15.7% vs BART baseline)
+- ROUGE-L: 0.497 (+15.3% vs BART baseline)
 - BERTScore: 0.686 (+12.1% vs BART baseline)
 - Factual Consistency: 87.6% (+4.7pp vs baseline)
 
