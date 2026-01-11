@@ -558,7 +558,7 @@ python models/hybrid_model.py
 
 | Metric | Baseline | Hybrid Model | Improvement |
 |--------|----------|--------------|-------------|
-| ROUGE-L | 0.421 | 0.487 | +15.7% |
+| ROUGE-L | 0.421 | 0.497 | +15.3% |
 | BERTScore | 0.612 | 0.686 | +12.1% |
 | Factual Consistency | 83.7% | 87.6% | +4.7pp |
 | **Inference Time** | **2.4s** | **2.9s** | **+21%** |
