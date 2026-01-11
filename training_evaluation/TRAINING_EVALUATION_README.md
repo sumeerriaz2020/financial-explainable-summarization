@@ -417,7 +417,7 @@ Severity Distribution:
    - Factual: 86.2%
 
 3. **Our System**
-   - ROUGE-L: 0.487 (**+15.7%**)
+   - ROUGE-L: 0.497 (**+15.3%**)
    - BERTScore: 0.686 (**+12.1%**)
    - Factual: 87.6% (**+4.7pp**)
 
@@ -443,7 +443,7 @@ comparison = comparator.compare(
 
 | Metric | Baseline | SOTA | Ours | Improvement |
 |--------|----------|------|------|-------------|
-| ROUGE-L | 0.421 | 0.465 | 0.487 | +15.7% |
+| ROUGE-L | 0.421 | 0.465 | 0.497 | +15.3% |
 | BERTScore | 0.612 | 0.658 | 0.686 | +12.1% |
 | Factual | 83.7% | 86.2% | 87.6% | +4.7pp |
 
