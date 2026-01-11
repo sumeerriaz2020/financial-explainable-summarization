@@ -6,7 +6,7 @@ experiment_id,model_variant,text_encoder,kg_encoder,cross_attention,multi_hop_re
 5,Full_Without_MESA,Yes,Yes,Yes,Yes,No,Yes,Yes,0.481,0.504,0.368,0.678,87.1,0.65,0.47,0.49,26.8,2.9,416
 6,Full_Without_Causal,Yes,Yes,Yes,Yes,Yes,No,Yes,0.479,0.502,0.365,0.676,86.9,0.71,0.38,0.51,26.5,2.9,416
 7,Full_Without_Temporal,Yes,Yes,Yes,Yes,Yes,Yes,No,0.483,0.506,0.370,0.681,87.3,0.72,0.49,0.42,26.7,2.9,416
-8,Full_Model,Yes,Yes,Yes,Yes,Yes,Yes,Yes,0.487,0.512,0.376,0.686,87.6,0.74,0.51,0.54,27.0,2.9,416
+8,Full_Model,Yes,Yes,Yes,Yes,Yes,Yes,Yes,0.497,0.512,0.376,0.686,87.6,0.74,0.51,0.54,27.0,2.9,416
 9,No_Text_Encoder,No,Yes,Yes,Yes,Yes,Yes,Yes,0.234,0.267,0.145,0.412,62.3,0.45,0.23,0.28,15.2,2.1,10
 10,No_KG_Encoder,Yes,No,Yes,No,Yes,Yes,Yes,0.438,0.461,0.325,0.628,84.2,0.69,0.31,0.48,24.5,2.5,414
 11,No_Cross_Attention,Yes,Yes,No,Yes,Yes,Yes,Yes,0.456,0.479,0.341,0.648,85.4,0.67,0.40,0.45,25.8,2.7,411
@@ -32,8 +32,8 @@ experiment_id,model_variant,text_encoder,kg_encoder,cross_attention,multi_hop_re
 31,Loss_Weight_Beta_0.3,Yes,Yes,Yes,Yes,Yes,Yes,Yes,0.482,0.506,0.370,0.682,87.2,0.71,0.52,0.53,27.2,2.9,416
 32,Loss_Weight_Gamma_0.2,Yes,Yes,Yes,Yes,Yes,Yes,Yes,0.485,0.509,0.373,0.684,87.4,0.76,0.50,0.55,27.3,2.9,416
 33,Stage1_Only,Yes,No,No,No,No,No,No,0.412,0.436,0.305,0.598,82.9,0.56,0.26,0.30,7.8,2.3,406
-34,Stage1_Stage2,Yes,Yes,Yes,No,No,No,No,0.463,0.487,0.350,0.659,85.9,0.66,0.40,0.42,13.7,2.7,413
-35,All_Stages,Yes,Yes,Yes,Yes,Yes,Yes,Yes,0.487,0.512,0.376,0.686,87.6,0.74,0.51,0.54,27.0,2.9,416
+34,Stage1_Stage2,Yes,Yes,Yes,No,No,No,No,0.463,0.497,0.350,0.659,85.9,0.66,0.40,0.42,13.7,2.7,413
+35,All_Stages,Yes,Yes,Yes,Yes,Yes,Yes,Yes,0.497,0.512,0.376,0.686,87.6,0.74,0.51,0.54,27.0,2.9,416
 36,FinBERT_Instead_BART,Yes,Yes,Yes,Yes,Yes,Yes,Yes,0.423,0.447,0.315,0.617,83.9,0.69,0.48,0.51,24.5,2.6,110
 37,T5_Instead_BART,Yes,Yes,Yes,Yes,Yes,Yes,Yes,0.476,0.499,0.363,0.676,86.7,0.72,0.49,0.52,28.3,3.2,738
 38,GPT2_Instead_BART,Yes,Yes,Yes,Yes,Yes,Yes,Yes,0.441,0.464,0.328,0.632,84.5,0.68,0.45,0.49,25.8,2.7,345
