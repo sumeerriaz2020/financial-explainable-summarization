@@ -1,6 +1,6 @@
 # Explainability Frameworks
 
-Five novel explainability frameworks for stakeholder-aware, transparent financial summarization.
+Five integrated explainability framework components for stakeholder-aware, transparent financial summarization.
 
 ---
 
@@ -19,7 +19,7 @@ Five novel explainability frameworks for stakeholder-aware, transparent financia
 ## 🎯 Framework Descriptions
 
 ### 1. MESA (`mesa.py`)
-**Multi-Stakeholder Explainable Summarization Assessment**
+**Multi-stakeholder Explainable Summarization Architecture**
 
 **Purpose:** Generate explanations optimized for different user roles
 
@@ -49,7 +49,7 @@ mesa.update_with_feedback(profile, explanation, feedback_score=0.85)
 ### 2. CAUSAL-EXPLAIN (`causal_explain.py`)
 **Causal Chain Extraction and Preservation**
 
-**Purpose:** Preserve critical cause-effect relationships
+**Purpose:** Preserve source-attributed causal claims (cause-effect statements asserted in the source)
 
 **Key Metrics:**
 - CPS (standard): Equation 7
@@ -240,6 +240,6 @@ numpy>=1.24.0
 
 ---
 
-## ✅ Ready for GitHub!
+## ✅ Repository component
 
-Upload as `explainability/` directory in your repository!
+Part of the `explainability/` directory.
