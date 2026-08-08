@@ -28,7 +28,7 @@ financial-explainable-summarization/
 │   ├── hybrid_model.py            # Complete model
 │   └── MODELS_README.md
 │
-├── explainability/                # 5 Explainability Frameworks (40 KB)
+├── explainability/                # 5 Explainability Framework Components (40 KB)
 │   ├── __init__.py
 │   ├── mesa.py                    # Multi-stakeholder
 │   ├── causal_explain.py          # Causal chains
@@ -122,9 +122,9 @@ financial-explainable-summarization/
 - Cross-modal attention mechanisms
 - Complete hybrid model
 
-**`explainability/`** - 5 novel explainability frameworks
+**`explainability/`** - 5 integrated explainability framework components
 - MESA: Multi-stakeholder with RL
-- CAUSAL-EXPLAIN: Causal preservation
+- CAUSAL-EXPLAIN: Preservation of causal claims
 - ADAPT-EVAL: Adaptive evaluation
 - CONSENSUS: Ensemble selection
 - TEMPORAL-EXPLAIN: Temporal consistency
@@ -225,4 +225,4 @@ Total Documentation:  ~3,000 lines
 
 ## Ready to Use!
 
-All components are production-ready and thoroughly documented.
+All components are research code and thoroughly documented.
