@@ -23,7 +23,7 @@ Complete knowledge graph infrastructure for FIBO integration, entity linking, ca
 **Purpose:** Interface to Financial Industry Business Ontology (FIBO) version 2024-Q1
 
 **Key Features:**
-- Loads 4 core FIBO modules (219 classes, 466 properties)
+- Loads 3 core FIBO modules (188 classes, 363 properties)
 - Class hierarchy navigation
 - Property lookup and validation
 - Instance type checking
@@ -32,7 +32,6 @@ Complete knowledge graph infrastructure for FIBO integration, entity linking, ca
 ```
 FND/Agents:        73 classes, 152 properties
 BE/LegalEntities:  47 classes,  84 properties
-FND/Relations:     31 classes, 103 properties
 FBC/Products:      68 classes, 127 properties
 ```
 
@@ -311,8 +310,8 @@ print(f"Knowledge graph: {kg.number_of_nodes()} nodes, {kg.number_of_edges()} ed
 | Component | Metric | Value |
 |-----------|--------|-------|
 | **FIBO Integration** | Load time | ~0.5s |
-| | Classes | 219 |
-| | Properties | 466 |
+| | Classes | 188 |
+| | Properties | 363 |
 | **Entity Linking** | Throughput | 1000+ entities/sec |
 | | Avg confidence | 0.78 |
 | | Coverage | 87% |
@@ -341,7 +340,7 @@ owlready2>=0.40
 
 ## 📈 Knowledge Graph Statistics
 
-From paper (Section V.B.1):
+From paper (Section 3.2.3):
 - **Entities:** 2.4M nodes
 - **Relationships:** 8.7M edges
 - **FIBO coverage:** 87% of financial entities
@@ -424,8 +423,4 @@ Load in Protégé:
 
 ---
 
-## 🚀 Ready for GitHub!
-
-Upload as `knowledge_graph/` directory in your repository!
-
-All components are production-ready and tested!
+All components are research code and tested.
