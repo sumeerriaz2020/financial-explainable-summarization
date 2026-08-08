@@ -559,14 +559,10 @@ python models/hybrid_model.py
 | Metric | Baseline | Hybrid Model | Improvement |
 |--------|----------|--------------|-------------|
 | ROUGE-L | 0.421 | 0.497 | +15.3% |
-| BERTScore | 0.612 | 0.686 | +12.1% |
+| BERTScore | 0.612 | 0.673 | +10.0% |
 | Factual Consistency | 83.7% | 87.6% | +3.9 pp |
 | **Inference Time** | **2.4s** | **2.9s** | **+21%** |
 | **Memory Usage** | **8.2GB** | **9.8GB** | **+19.5%** |
-
-<!-- NOTE: BERTScore "Hybrid Model" is shown as 0.686 (matches paper Table II). Confirm against logs;
-     paper §4.1.4 / Table 5 / Table 6 use 0.673. Repo and paper MUST match. If 0.673, change to 0.673
-     and +12.1% -> +10.0%. -->
 
 ---
 
