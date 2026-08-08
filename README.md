@@ -3,7 +3,6 @@
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c.svg)](https://pytorch.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![arXiv](https://img.shields.io/badge/arXiv-2024.xxxxx-b31b1b.svg)](https://arxiv.org/abs/2024.xxxxx)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 > **An eXplainable Approach to Abstractive Text Summarization Using External Knowledge: A Novel Framework for Financial Domain Applications**
@@ -20,9 +19,9 @@ Official implementation of the hybrid neural-symbolic framework for explainable 
 - **15.3% improvement** in ROUGE-L (0.421 → 0.497)
 - **50% improvement** in Causal Preservation Score (0.34 → 0.51)
 - **21.3% improvement** in Stakeholder Satisfaction (0.61 → 0.74)
-- **FIBO 2024-Q1 integration** with 219 classes, 466 properties
-- **5 novel explainability frameworks** (MESA, CAUSAL-EXPLAIN, ADAPT-EVAL, CONSENSUS, TEMPORAL-EXPLAIN)
-- **Production-ready code** with comprehensive documentation
+- **FIBO 2024-Q1 integration** with 188 classes, 363 properties
+- **5 integrated explainability framework components** (MESA, CAUSAL-EXPLAIN, ADAPT-EVAL, CONSENSUS, TEMPORAL-EXPLAIN)
+- **Research code** with comprehensive documentation
 
 ---
 
@@ -52,10 +51,10 @@ This repository implements a **hybrid neural-symbolic framework** that combines:
 4. **Multi-Hop Reasoning**: 3-hop traversal for complex relationships
 5. **Multi-Stakeholder Explainability**: Role-specific explanations (analyst, compliance, executive)
 
-### Novel Contributions
+### Framework Components
 
 ✅ **MESA Framework**: Multi-stakeholder explanation with RL-based preference learning  
-✅ **CAUSAL-EXPLAIN**: Causal chain extraction and preservation (CPS metric)  
+✅ **CAUSAL-EXPLAIN**: Extraction and preservation of source-attributed causal claims (CPS metric)  
 ✅ **ADAPT-EVAL**: Adaptive evaluation with continuous user feedback  
 ✅ **INTERPRETABLE-CONSENSUS**: Transparent ensemble explanation selection  
 ✅ **TEMPORAL-EXPLAIN**: Market regime-aware temporal consistency (TCC metric)
@@ -81,7 +80,7 @@ Input Document
 **Components:**
 - **Algorithms**: 6 core algorithms (KG construction, hybrid inference, MESA, etc.)
 - **Models**: Dual encoder, KG encoder, cross-modal attention, complete hybrid model
-- **Explainability**: 5 novel frameworks for stakeholder-aware explanations
+- **Explainability**: 5 integrated framework components for stakeholder-aware explanations
 - **Knowledge Graph**: FIBO integration + custom extensions (temporal, causal, regime)
 - **Utils**: Preprocessing, NER, KG operations, visualization
 
@@ -99,7 +98,7 @@ Input Document
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/financial-explainable-summarization.git
+git clone https://github.com/sumeerriaz2020/financial-explainable-summarization.git
 cd financial-explainable-summarization
 
 # Install package
@@ -322,7 +321,7 @@ financial-explainable-summarization/
 └── README.md                      # This file
 ```
 
-**Total:** 402 KB of production-ready code
+**Total:** 402 KB of research code
 
 ---
 
@@ -345,13 +344,13 @@ financial-explainable-summarization/
 
 ### Explainability
 - ✅ MESA: Stakeholder-aware explanations with RL
-- ✅ CAUSAL-EXPLAIN: Causal chain extraction (CPS metric)
+- ✅ CAUSAL-EXPLAIN: Preservation of source-attributed causal claims (CPS metric)
 - ✅ ADAPT-EVAL: Adaptive evaluation with feedback
 - ✅ CONSENSUS: Transparent ensemble selection
 - ✅ TEMPORAL-EXPLAIN: Market regime-aware consistency
 
 ### Knowledge Graph
-- ✅ FIBO 2024-Q1 integration (219 classes, 466 properties)
+- ✅ FIBO 2024-Q1 integration (188 classes, 363 properties)
 - ✅ Custom extensions (temporal, causal, stakeholder, regime)
 - ✅ Entity linking to FIBO concepts
 - ✅ Causal relationship extraction
@@ -361,22 +360,26 @@ financial-explainable-summarization/
 
 ## 📊 Performance
 
+<!-- NOTE (do not publish as final until resolved): BERTScore "Our System" is shown as 0.686 below.
+     The paper's §4.1.4 / Table 5 / Table 6 use 0.673. Confirm the true value from your logs.
+     Repo and paper MUST show the SAME number. If it is 0.673, change 0.686 -> 0.673 and +12.1% -> +10.0%. -->
+
 ### Summarization Quality (Table II)
 
-| Metric | Baseline | SOTA | **Our System** | Improvement |
-|--------|----------|------|----------------|-------------|
-| ROUGE-L | 0.421 | 0.465 | **0.497** | **+15.3%** |
-| BERTScore | 0.612 | 0.658 | **0.686** | **+12.1%** |
-| Factual Consistency | 83.7% | 86.2% | **87.6%** | **+4.7** |
+| Metric | Baseline | **Our System** | Improvement |
+|--------|----------|----------------|-------------|
+| ROUGE-L | 0.421 | **0.497** | **+15.3%** |
+| BERTScore | 0.612 | **0.686** | **+12.1%** |
+| Factual Consistency | 83.7% | **87.6%** | **+3.9** |
 
 ### Explainability Metrics (Table III)
 
-| Metric | Baseline | SOTA | **Our System** | Improvement |
-|--------|----------|------|----------------|-------------|
-| SSI | 0.61±0.07 | 0.67±0.07 | **0.74±0.06** | **+21.3%** |
-| CPS | 0.34±0.08 | 0.42±0.08 | **0.51±0.07** | **+50.0%** |
-| TCC | 0.38±0.06 | 0.45±0.07 | **0.54±0.07** | **+42.1%** |
-| Consistency | 0.43±0.07 | 0.51±0.07 | **0.59±0.06** | **+37.2%** |
+| Metric | Baseline | **Our System** | Improvement |
+|--------|----------|----------------|-------------|
+| SSI | 0.61±0.07 | **0.74±0.06** | **+21.3%** |
+| CPS | 0.34±0.08 | **0.51±0.07** | **+50.0%** |
+| TCC | 0.38±0.06 | **0.54±0.07** | **+42.1%** |
+| Consistency | 0.43±0.07 | **0.59±0.06** | **+37.2%** |
 
 ### Computational Costs
 
@@ -384,7 +387,7 @@ financial-explainable-summarization/
 |--------|----------|------------|----------|
 | Inference Time | 2.4s | 2.9s | +21% |
 | Memory Usage | 8.2 GB | 9.8 GB | +19.5% |
-| Training Time | 24h | 36h | +50% |
+| Training Time | 18h | 27h | +50% |
 
 ---
 
@@ -460,7 +463,7 @@ python inference.py \
 4. **Computational Cost**: 21% slower inference, 19.5% higher memory
 5. **Domain**: Optimized for financial documents (requires adaptation for other domains)
 
-See Section V.D in the paper for detailed error analysis.
+See Section 4.4 (Error Analysis) in the paper for detailed error analysis.
 
 ---
 
@@ -472,7 +475,7 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 
 ```bash
 # Clone with development dependencies
-git clone https://github.com/yourusername/financial-explainable-summarization.git
+git clone https://github.com/sumeerriaz2020/financial-explainable-summarization.git
 cd financial-explainable-summarization
 
 # Install with dev dependencies
@@ -493,11 +496,11 @@ flake8 .
 If you use this code in your research, please cite:
 
 ```bibtex
-@article{riaz2024explainable,
+@article{riaz2026explainable,
   title={An eXplainable Approach to Abstractive Text Summarization Using External Knowledge: A Novel Framework for Financial Domain Applications},
   author={Riaz, Sumeer and Bashir, M. Bilal and Naqvi, Syed Ali Hassan},
-  journal={arXiv preprint arXiv:2024.xxxxx},
-  year={2024}
+  journal={Expert Systems With Applications (under review)},
+  year={2026}
 }
 ```
 
@@ -519,7 +522,7 @@ Affiliation: IQRA University Islamabad Campus
 Email: bilal.bashir@iqraisb.edu.pk
 
 **Syed Ali Hassan Naqvi**  
-Email: ali.hassan@iqraisb.edu.pk
+Email: ali33884@iqraisb.edu.pk
 
 ---
 
@@ -540,8 +543,7 @@ Email: ali.hassan@iqraisb.edu.pk
 - [x] Knowledge graph integration
 - [x] Utility scripts
 - [x] Documentation
-- [ ] Pre-trained model weights (coming soon)
-- [ ] Online demo (coming soon)
+- Pre-trained model weights: *not retained; unavailable* (source code and configuration are provided)
 - [ ] Extended domain support (future work)
 
 ---
