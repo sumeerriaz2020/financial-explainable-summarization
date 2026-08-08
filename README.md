@@ -360,16 +360,12 @@ financial-explainable-summarization/
 
 ## 📊 Performance
 
-<!-- NOTE (do not publish as final until resolved): BERTScore "Our System" is shown as 0.686 below.
-     The paper's §4.1.4 / Table 5 / Table 6 use 0.673. Confirm the true value from your logs.
-     Repo and paper MUST show the SAME number. If it is 0.673, change 0.686 -> 0.673 and +12.1% -> +10.0%. -->
-
 ### Summarization Quality (Table II)
 
 | Metric | Baseline | **Our System** | Improvement |
 |--------|----------|----------------|-------------|
 | ROUGE-L | 0.421 | **0.497** | **+15.3%** |
-| BERTScore | 0.612 | **0.686** | **+12.1%** |
+| BERTScore | 0.612 | **0.673** | **+10.0%** |
 | Factual Consistency | 83.7% | **87.6%** | **+3.9** |
 
 ### Explainability Metrics (Table III)
