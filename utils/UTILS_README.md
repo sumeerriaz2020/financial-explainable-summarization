@@ -281,7 +281,7 @@ viz = PaperVisualizations()
 viz.plot_table_ii_performance(save_path='table_ii.png')
 ```
 Generates:
-- ROUGE-L scores (0.421 → 0.487)
+- ROUGE-L scores (0.421 → 0.497)
 - BERTScore (0.612 → 0.686)
 - Factual Consistency (83.7% → 87.6%)
 
@@ -331,6 +331,10 @@ viz.plot_kg_statistics(
 ```
 
 **Output:** All figures at 300 DPI, publication-ready
+
+> Note: When regenerating paper figures, ensure the values used match the final
+> manuscript tables (e.g., CPS 0.34→0.51 in the ablation, and the per-summary
+> error distribution). Regenerate figures from the authoritative table values.
 
 ---
 
@@ -513,8 +517,6 @@ python utils/visualization.py
 
 ---
 
-## 🚀 Ready for GitHub!
+## Repository component
 
-Upload as `utils/` directory in your repository!
-
-All utilities are production-ready and tested!
+Part of the `utils/` directory. All utilities are research code and tested.
