@@ -1,6 +1,6 @@
 # Algorithm Implementations - Financial Explainable Summarization
 
-This directory contains complete, production-ready implementations of all 6 core algorithms from the paper:
+This directory contains complete, research implementations of all 6 core algorithms from the paper:
 
 **"An eXplainable Approach to Abstractive Text Summarization Using External Knowledge: A Novel Framework for Financial Domain Applications"**
 
@@ -19,7 +19,7 @@ Authors: Sumeer Riaz, Dr. M. Bilal Bashir, Syed Ali Hassan Naqvi
 | `algorithm_5_consensus.py` | 19 KB | INTERPRETABLE-CONSENSUS | ~456 |
 | `algorithm_6_training.py` | 23 KB | Multi-Stage Training Pipeline | ~647 |
 
-**Total: 148 KB, ~4,119 lines of production-ready Python code**
+**Total: 148 KB, ~4,119 lines of research Python code**
 
 ---
 
@@ -144,7 +144,7 @@ mesa.update_with_feedback(profile, explanation, feedback_score=0.85)
 **Reference:** Section III.D.2, Algorithm 4
 
 **What it does:**
-- Extracts causal chains from financial documents
+- Extracts source-attributed causal chains from financial documents
 - Validates against knowledge graph constraints
 - Computes importance weights (frequency, centrality, relevance)
 - Preserves top-k chains within summary budget
@@ -290,7 +290,7 @@ python -m spacy download en_core_web_sm
 | **MESA** | Stakeholder Satisfaction (SSI) | +21.3% | 0.61→0.74 |
 | **CAUSAL-EXPLAIN** | Causal Preservation (CPS) | +50.0% | 0.34→0.51 |
 | **CONSENSUS** | Explanation Consistency | +37.2% | 0.43→0.59 |
-| **Hybrid Model** | Factual Consistency | +4.7pp | 83.7%→87.6% |
+| **Hybrid Model** | Factual Consistency | +3.9 pp | 83.7%→87.6% |
 | **TEMPORAL** | Temporal Consistency (TCC) | +42.1% | 0.38→0.54 |
 
 ---
@@ -359,7 +359,7 @@ From the paper's honest error analysis:
    - 19.5% higher memory (9.8GB vs 8.2GB)
    - 50% longer training time
 
-3. **Causal Preservation**: CPS of 0.51 means 49% of causal chains still lost
+3. **Causal Preservation**: CPS of 0.51 means 49% of source-attributed causal claims are not preserved
 
 4. **Scalability**: Documents >50 pages show 18% ROUGE-L degradation
 
@@ -369,7 +369,7 @@ From the paper's honest error analysis:
    - Informal terminology
 
 6. **Regulatory Compliance**: 
-   - Self-assessed at 87-93% for GDPR
+   - Regulatory alignment is self-assessed at the design level (qualitative), not a legal evaluation
    - Requires independent legal audit for certification
 
 ---
@@ -379,11 +379,11 @@ From the paper's honest error analysis:
 If you use these implementations, please cite:
 
 ```bibtex
-@article{riaz2024explainable,
+@article{riaz2026explainable,
   title={An eXplainable Approach to Abstractive Text Summarization Using External Knowledge: A Novel Framework for Financial Domain Applications},
   author={Riaz, Sumeer and Bashir, M. Bilal and Naqvi, Syed Ali Hassan},
-  journal={Submitted for review},
-  year={2024}
+  journal={Expert Systems With Applications (under review)},
+  year={2026}
 }
 ```
 
@@ -400,7 +400,7 @@ For questions or issues:
 
 ## 📄 License
 
-Apache 2.0 License (to be confirmed)
+MIT License (see LICENSE file at repository root).
 
 ---
 
@@ -412,7 +412,5 @@ All implementations include:
 - ✅ Error handling
 - ✅ Logging for debugging
 - ✅ Example usage in `__main__`
-- ✅ Production-ready structure
+- ✅ Documented, tested structure
 - ✅ Faithful to paper specifications
-
-**Ready for integration into your GitHub repository!**
