@@ -13,7 +13,7 @@ Complete implementation of the hybrid neural-symbolic architecture for explainab
 | `cross_modal_attention.py` | 19 KB | Cross-modal attention mechanisms | CrossModalAttention, BidirectionalCrossModalAttention, GatedFusion |
 | `hybrid_model.py` | 20 KB | Complete integrated model | HybridModel, MultiHopReasoning |
 
-**Total: 76 KB of production-ready PyTorch code**
+**Total: 76 KB of research PyTorch code**
 
 ---
 
@@ -373,7 +373,7 @@ HybridModel(
 
 **Complete Architecture:**
 ```python
-HybridModel (406M parameters)
+HybridModel (~416M parameters)
 ├── DualEncoder
 │   ├── TextEncoder (BART-large: 406M)
 │   └── KGEncoder (GAT: 2.1M)
@@ -560,9 +560,13 @@ python models/hybrid_model.py
 |--------|----------|--------------|-------------|
 | ROUGE-L | 0.421 | 0.497 | +15.3% |
 | BERTScore | 0.612 | 0.686 | +12.1% |
-| Factual Consistency | 83.7% | 87.6% | +4.7pp |
+| Factual Consistency | 83.7% | 87.6% | +3.9 pp |
 | **Inference Time** | **2.4s** | **2.9s** | **+21%** |
 | **Memory Usage** | **8.2GB** | **9.8GB** | **+19.5%** |
+
+<!-- NOTE: BERTScore "Hybrid Model" is shown as 0.686 (matches paper Table II). Confirm against logs;
+     paper §4.1.4 / Table 5 / Table 6 use 0.673. Repo and paper MUST match. If 0.673, change to 0.673
+     and +12.1% -> +10.0%. -->
 
 ---
 
@@ -613,14 +617,12 @@ For questions about the model architecture:
 
 ---
 
-## ✅ Ready for GitHub!
+## ✅ Model Components
 
 All model components are:
-- ✅ Production-ready
+- ✅ Well-structured
 - ✅ Well-documented
 - ✅ Type-annotated
 - ✅ Tested
 - ✅ Faithful to paper
 - ✅ Modular and reusable
-
-Upload to your repository as `models/` directory!
